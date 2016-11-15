@@ -74,13 +74,11 @@ public class Game implements Screen {
 	}
 
 	private void drawGameEntities() {
-		spriteBatch.begin();
-		debugRenderer.render(world, camera.getCamera().combined);
 		List<AGameEntity> gameEntities = GameEntities.INSTANCE.getEntityList();
 		for (int i = 0; i < gameEntities.size(); i++) {
 			gameEntities.get(i).draw(spriteBatch);
 		}
-		spriteBatch.end();
+		debugRenderer.render(world, camera.getCamera().combined);
 	}
 
 	private void drawUIEntities() {
@@ -121,7 +119,7 @@ public class Game implements Screen {
 	public Camera getCamera() {
 		return camera;
 	}
-	
+
 	public PlayerInputProcessor getInputProcessor() {
 		return (PlayerInputProcessor) EGameState.GAME.getInputProcessor();
 	}

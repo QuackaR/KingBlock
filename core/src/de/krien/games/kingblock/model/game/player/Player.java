@@ -1,7 +1,6 @@
 package de.krien.games.kingblock.model.game.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
@@ -26,8 +25,8 @@ public class Player extends AGameEntity {
 		PlayerMovement.rotatePlayer(this);
 	}
 
-	@Override
-	public void draw(SpriteBatch spriteBatch) {
+//	@Override
+//	public void draw(SpriteBatch spriteBatch) {
 		// spriteBatch.begin();
 		// spriteBatch.
 		// spriteBatch.draw(
@@ -42,7 +41,7 @@ public class Player extends AGameEntity {
 		// shapeRenderer.setColor(Color.RED);
 		// shapeRenderer.rect(body.getPosition().x, body.getPosition().y, 5, 5);
 		// shapeRenderer.end();
-	}
+//	}
 
 
 

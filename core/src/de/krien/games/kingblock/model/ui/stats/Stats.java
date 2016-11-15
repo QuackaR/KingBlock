@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import de.krien.games.kingblock.controller.gamestates.EGameState;
+import de.krien.games.kingblock.controller.gamestates.game.Game;
 import de.krien.games.kingblock.model.game.GameEntities;
 import de.krien.games.kingblock.model.ui.AUIEntity;
 
@@ -27,6 +29,7 @@ public class Stats extends AUIEntity {
 		drawFps(spriteBatch);
 		drawCursorPosition(spriteBatch);
 		drawPlayerPosition(spriteBatch);
+		drawCameraZoom(spriteBatch);
 	}
 
 	private void drawFps(SpriteBatch spriteBatch) {
@@ -40,13 +43,17 @@ public class Stats extends AUIEntity {
 
 	private void drawCursorPosition(SpriteBatch spriteBatch) {
 		Vector2 cursorPosition = round(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-		font.draw(spriteBatch, "Mouse Position: " + cursorPosition.x + "/" + cursorPosition.y, 5,
-				Gdx.graphics.getHeight() - 50);
+		font.draw(spriteBatch, "Mouse Position: " + cursorPosition.x + "/" + cursorPosition.y, 5, Gdx.graphics.getHeight() - 45);
+	}
+
+	private void drawCameraZoom(SpriteBatch spriteBatch) {
+		float cameraZoom = ((Game) (EGameState.GAME.getScreen())).getCamera().getCamera().zoom;
+		font.draw(spriteBatch, "Camera Zoom: " + cameraZoom, 5, Gdx.graphics.getHeight() - 65);
 	}
 
 	private Vector2 round(Vector2 vector) {
 		float x = Math.round(vector.x * 100f) / 100f;
-		float y = Math.round(vector.x * 100f) / 100f;
+		float y = Math.round(vector.y * 100f) / 100f;
 		return new Vector2(x, y);
 	}
 

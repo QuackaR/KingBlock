@@ -21,7 +21,7 @@ public class BodyUtil {
 		body.setFixedRotation(fixedRotation);
 
 		CircleShape circle = new CircleShape();
-		circle.setRadius(size);
+		circle.setRadius(size/2);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
@@ -42,7 +42,7 @@ public class BodyUtil {
 		body.setFixedRotation(fixedRotation);
 
 		PolygonShape rectangle = new PolygonShape();
-		rectangle.setAsBox(size.x, size.y);
+		rectangle.setAsBox(size.x/2, size.y/2);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = rectangle;

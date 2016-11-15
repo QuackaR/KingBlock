@@ -9,6 +9,9 @@ public class PlayerInputProcessor implements InputProcessor {
 	private boolean moveLeft = false;
 	private boolean moveRight = false;
 
+	private boolean zoomIn = false;
+	private boolean zoomOut = false;
+
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == ControlConfiguration.getMoveUpKey()) {
@@ -22,6 +25,12 @@ public class PlayerInputProcessor implements InputProcessor {
 		}
 		if (keycode == ControlConfiguration.getMoveRightKey()) {
 			moveRight = true;
+		}
+		if (keycode == ControlConfiguration.getZoomInKey()) {
+			zoomIn = true;
+		}
+		if (keycode == ControlConfiguration.getZoomOutKey()) {
+			zoomOut = true;
 		}
 		return false;
 	}
@@ -40,13 +49,17 @@ public class PlayerInputProcessor implements InputProcessor {
 		if (keycode == ControlConfiguration.getMoveRightKey()) {
 			moveRight = false;
 		}
-
+		if (keycode == ControlConfiguration.getZoomInKey()) {
+			zoomIn = false;
+		}
+		if (keycode == ControlConfiguration.getZoomOutKey()) {
+			zoomOut = false;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -84,16 +97,48 @@ public class PlayerInputProcessor implements InputProcessor {
 		return moveUp;
 	}
 
+	public void setMoveUp(boolean moveUp) {
+		this.moveUp = moveUp;
+	}
+
 	public boolean isMoveDown() {
 		return moveDown;
+	}
+
+	public void setMoveDown(boolean moveDown) {
+		this.moveDown = moveDown;
 	}
 
 	public boolean isMoveLeft() {
 		return moveLeft;
 	}
 
+	public void setMoveLeft(boolean moveLeft) {
+		this.moveLeft = moveLeft;
+	}
+
 	public boolean isMoveRight() {
 		return moveRight;
+	}
+
+	public void setMoveRight(boolean moveRight) {
+		this.moveRight = moveRight;
+	}
+
+	public boolean isZoomIn() {
+		return zoomIn;
+	}
+
+	public void setZoomIn(boolean zoomIn) {
+		this.zoomIn = zoomIn;
+	}
+
+	public boolean isZoomOut() {
+		return zoomOut;
+	}
+
+	public void setZoomOut(boolean zoomOut) {
+		this.zoomOut = zoomOut;
 	}
 
 }
