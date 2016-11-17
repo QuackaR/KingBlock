@@ -7,17 +7,16 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-
-import de.krien.games.kingblock.util.game.GameUtil;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class BodyUtil {
 
 	// TODO ggf. density, friction und restitution übergeben
-	public static Body createCircle(Vector2 position, float size, BodyType bodyType, boolean fixedRotation) {
+	public static Body createCircle(World world, Vector2 position, float size, BodyType bodyType, boolean fixedRotation) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = bodyType;
 		bodyDef.position.set(position);
-		Body body = GameUtil.getGame().getWorld().createBody(bodyDef);
+		Body body = world.createBody(bodyDef);
 		body.setFixedRotation(fixedRotation);
 
 		CircleShape circle = new CircleShape();
@@ -34,11 +33,11 @@ public class BodyUtil {
 		return body;
 	}
 
-	public static Body createRectangle(Vector2 position, Vector2 size, BodyType bodyType, boolean fixedRotation) {
+	public static Body createRectangle(World world, Vector2 position, Vector2 size, BodyType bodyType, boolean fixedRotation) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = bodyType;
 		bodyDef.position.set(position);
-		Body body = GameUtil.getGame().getWorld().createBody(bodyDef);
+		Body body = world.createBody(bodyDef);
 		body.setFixedRotation(fixedRotation);
 
 		PolygonShape rectangle = new PolygonShape();

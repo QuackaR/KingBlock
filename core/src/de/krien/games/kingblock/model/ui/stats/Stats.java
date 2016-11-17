@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-import de.krien.games.kingblock.controller.gamestates.EGameState;
-import de.krien.games.kingblock.controller.gamestates.game.Game;
-import de.krien.games.kingblock.model.game.GameEntities;
 import de.krien.games.kingblock.model.ui.AUIEntity;
 
 public class Stats extends AUIEntity {
@@ -52,7 +49,7 @@ public class Stats extends AUIEntity {
 	}
 
 	private void drawCameraZoom(SpriteBatch spriteBatch) {
-		float cameraZoom = ((Game) (EGameState.GAME.getScreen())).getCamera().getCamera().zoom;
+		float cameraZoom = GameUtil.getCamera().zoom;
 		font.draw(spriteBatch, "Camera Zoom: " + cameraZoom, 5, Gdx.graphics.getHeight() - 65);
 	}
 

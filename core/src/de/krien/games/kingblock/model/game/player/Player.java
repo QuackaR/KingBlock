@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import de.krien.games.kingblock.model.game.AGameEntity;
 import de.krien.games.kingblock.util.box2d.BodyUtil;
+import de.krien.games.kingblock.util.game.GameUtil;
 import de.krien.games.kingblock.util.texture.AssetUtil;
 
 public class Player extends AGameEntity {
@@ -15,7 +16,7 @@ public class Player extends AGameEntity {
 	public Player() {
 		super();
 		this.texture = AssetUtil.loadGameEntityTexture(EPlayerModels.DEFAULT);
-		body = BodyUtil.createCircle(DEFAULT_POSITION, texture.getWidth(), BodyType.DynamicBody, true);
+		body = BodyUtil.createCircle(GameUtil.getWorld(), DEFAULT_POSITION, texture.getWidth(), BodyType.DynamicBody, true);
 	}
 
 
