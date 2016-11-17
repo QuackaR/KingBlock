@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public interface IEntity {
 	
 	public Vector2 getPosition();
+	public Vector2 getSize();
 	public void update(float timeSinceLastGameLoop);
 	public void draw(SpriteBatch spriteBatch);
     

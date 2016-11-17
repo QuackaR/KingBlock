@@ -5,7 +5,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -82,14 +81,10 @@ public class Game implements Screen {
 	}
 
 	private void drawUIEntities() {
-		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		spriteBatch.setProjectionMatrix(normalProjection);
-		spriteBatch.begin();
 		List<AUIEntity> uiEntities = UIEntities.INSTANCE.getEntityList();
 		for (int i = 0; i < uiEntities.size(); i++) {
 			uiEntities.get(i).draw(spriteBatch);
 		}
-		spriteBatch.end();
 	}
 
 	@Override

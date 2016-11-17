@@ -7,6 +7,8 @@ import de.krien.games.kingblock.model.IEntity;
 
 public class AUIEntity implements IEntity {
 
+	protected Vector2 position;
+	protected Vector2 size;
 
 	public AUIEntity() {
 	}
@@ -21,7 +23,12 @@ public class AUIEntity implements IEntity {
 
 	@Override
 	public Vector2 getPosition() {
-		return null;
+		return position;
+	}
+
+	@Override
+	public Vector2 getSize() {
+		return size;
 	}
 
 

@@ -46,6 +46,11 @@ public class AGameEntity implements IEntity {
 	@Override
 	public Vector2 getPosition() {
 		return body.getPosition();
+	}
+
+	@Override
+	public Vector2 getSize() {
+		return new Vector2(texture.getWidth(), texture.getHeight());
 	}	
 
 }

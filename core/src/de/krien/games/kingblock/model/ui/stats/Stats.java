@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
 import de.krien.games.kingblock.controller.gamestates.EGameState;
@@ -26,10 +27,14 @@ public class Stats extends AUIEntity {
 
 	@Override
 	public void draw(SpriteBatch spriteBatch) {
+		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		spriteBatch.setProjectionMatrix(normalProjection);
+		spriteBatch.begin();
 		drawFps(spriteBatch);
 		drawCursorPosition(spriteBatch);
 		drawPlayerPosition(spriteBatch);
 		drawCameraZoom(spriteBatch);
+		spriteBatch.end();
 	}
 
 	private void drawFps(SpriteBatch spriteBatch) {

@@ -1,6 +1,20 @@
 package de.krien.games.kingblock.controller.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+
+import de.krien.games.kingblock.controller.gamestates.EGameState;
+import de.krien.games.kingblock.controller.gamestates.game.Game;
+import de.krien.games.kingblock.model.IClickableEntity;
+import de.krien.games.kingblock.model.IEntity;
+import de.krien.games.kingblock.model.game.AGameEntity;
+import de.krien.games.kingblock.model.game.GameEntities;
+import de.krien.games.kingblock.model.ui.AUIEntity;
+import de.krien.games.kingblock.model.ui.UIEntities;
 
 public class PlayerInputProcessor implements InputProcessor {
 
@@ -65,8 +79,50 @@ public class PlayerInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		Vector2 eventPosition = new Vector2(screenX, Gdx.graphics.getHeight() - screenY);
+		IEntity clickedEntity = getClickedEntity(eventPosition);
+		if (clickedEntity != null && clickedEntity instanceof IClickableEntity && clickedEntity instanceof AUIEntity
+				&& button == Buttons.LEFT) {
+			((IClickableEntity) clickedEntity).clicked(eventPosition);
+		} else if (clickedEntity != null && clickedEntity instanceof IClickableEntity
+				&& clickedEntity instanceof AGameEntity && button == Buttons.RIGHT) {
+			((IClickableEntity) clickedEntity).clicked(eventPosition);
+		}
 		return false;
+	}
+
+	private static IEntity getClickedEntity(Vector2 eventPosition) {
+		for (IEntity entity : UIEntities.INSTANCE.getEntityList()) {
+			if (entity.getPosition() != null && entity.getSize() != null) {
+				Vector3 entityPosition3 = getCamera().project(new Vector3(entity.getPosition().x, entity.getPosition().y, 0));
+				Vector2 entityPosition = new Vector2(entityPosition3.x, entityPosition3.y);
+				if(eventPosition.x >= entityPosition.x
+					&& eventPosition.x <= (entityPosition.x + entity.getSize().x)
+					&& eventPosition.y >= entityPosition.y
+					&& eventPosition.y <= (entityPosition.y + entity.getSize().y)) {
+					return entity;
+				}
+			}
+		}
+		for (IEntity entity : GameEntities.INSTANCE.getEntityList()) {
+			float halfSizeX = entity.getSize().x / 2;
+			float halfSizeY = entity.getSize().y / 2;
+			if (entity.getPosition() != null && entity.getSize() != null) {
+				Vector3 entityPosition3 = getCamera().project(new Vector3(entity.getPosition().x, entity.getPosition().y, 0));
+				Vector2 entityPosition = new Vector2(entityPosition3.x, entityPosition3.y);
+				if (eventPosition.x >= entityPosition.x - halfSizeX 
+						&& eventPosition.x <= (entityPosition.x + halfSizeX)
+						&& eventPosition.y >= entityPosition.y - halfSizeY 
+						&& eventPosition.y <= (entityPosition.y + halfSizeY)) {
+					return entity;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private static Camera getCamera() {
+		return ((Game) (EGameState.GAME.getScreen())).getCamera().getCamera();
 	}
 
 	@Override
