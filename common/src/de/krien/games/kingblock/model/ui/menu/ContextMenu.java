@@ -2,7 +2,6 @@ package de.krien.games.kingblock.model.ui.menu;
 
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -13,7 +12,9 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
 import de.krien.games.kingblock.model.IClickableEntity;
+import de.krien.games.kingblock.model.IEntityList;
 import de.krien.games.kingblock.model.ui.AUIEntity;
+import de.krien.games.kingblock.model.ui.IUIEntityList;
 
 public class ContextMenu extends AUIEntity implements IClickableEntity {
 
@@ -25,21 +26,24 @@ public class ContextMenu extends AUIEntity implements IClickableEntity {
 
 	protected Vector2 size;
 	protected List<IContextMenuEntry> entries;
+	protected IUIEntityList entityList;
 
 	private BitmapFont font;
 	private GlyphLayout layout;
 	private ShapeRenderer shapeRenderer;
 
-	public ContextMenu() {
+	public ContextMenu(IUIEntityList entityList) {
 		super();
 		this.font = new BitmapFont();
 		font.setColor(DEFAULT_TEXT_COLOR);
 		this.layout = new GlyphLayout();
 		this.shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setColor(Color.GRAY);
+		this.entityList = entityList;
+		entityList.addEntity(this);
 	}
 	
-	public ContextMenu(Vector2 position, List<IContextMenuEntry> entries) {
+	public ContextMenu(IUIEntityList entityList, Vector2 position, List<IContextMenuEntry> entries) {
 		super();
 		this.position = position;
 		this.size = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT * entries.size());
@@ -50,17 +54,18 @@ public class ContextMenu extends AUIEntity implements IClickableEntity {
 		this.layout = new GlyphLayout();
 		this.shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setColor(Color.GRAY);
+		this.entityList = entityList;
+		entityList.addEntity(this);
 	}
 
 	@Override
-	public void draw(SpriteBatch spriteBatch) {
-		drawMenu();
-		drawText(spriteBatch);
+	public void draw(SpriteBatch spriteBatch, Matrix4 projectionMatrix) {
+		drawMenu(projectionMatrix);
+		drawText(spriteBatch, projectionMatrix);
 	}
 
-	private void drawMenu() {
-		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		shapeRenderer.setProjectionMatrix(normalProjection);
+	private void drawMenu(Matrix4 projectionMatrix) {
+		shapeRenderer.setProjectionMatrix(projectionMatrix);
 		shapeRenderer.begin(ShapeType.Line);
 		for (int i = 0; i < entries.size(); i++) {
 			float sizeY = size.y / entries.size();
@@ -70,9 +75,8 @@ public class ContextMenu extends AUIEntity implements IClickableEntity {
 		shapeRenderer.end();
 	}
 
-	private void drawText(SpriteBatch spriteBatch) {
-		Matrix4 normalProjection = new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		spriteBatch.setProjectionMatrix(normalProjection);
+	private void drawText(SpriteBatch spriteBatch, Matrix4 projectionMatrix) {
+		spriteBatch.setProjectionMatrix(projectionMatrix);
 		spriteBatch.begin();
 		for (int i = 0; i < entries.size(); i++) {
 			String entry = entries.get(i).getText();
@@ -100,7 +104,7 @@ public class ContextMenu extends AUIEntity implements IClickableEntity {
 	}
 
 	@Override
-	public void clicked(Vector2 clickPosition) {
+	public void clicked(Vector2 clickPosition, IEntityList entityList) {
 		float entryHeight = size.y / entries.size();
 		for (int i = 0; i < entries.size(); i++) {
 			float positionMin = position.y + entryHeight * i;

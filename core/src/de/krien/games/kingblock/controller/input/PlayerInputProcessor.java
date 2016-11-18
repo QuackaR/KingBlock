@@ -1,9 +1,9 @@
 package de.krien.games.kingblock.controller.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -83,10 +83,10 @@ public class PlayerInputProcessor implements InputProcessor {
 		IEntity clickedEntity = getClickedEntity(eventPosition);
 		if (clickedEntity != null && clickedEntity instanceof IClickableEntity && clickedEntity instanceof AUIEntity
 				&& button == Buttons.LEFT) {
-			((IClickableEntity) clickedEntity).clicked(eventPosition);
+			((IClickableEntity) clickedEntity).clicked(eventPosition, UIEntities.INSTANCE);
 		} else if (clickedEntity != null && clickedEntity instanceof IClickableEntity
 				&& clickedEntity instanceof AGameEntity && button == Buttons.RIGHT) {
-			((IClickableEntity) clickedEntity).clicked(eventPosition);
+			((IClickableEntity) clickedEntity).clicked(eventPosition, UIEntities.INSTANCE);
 		}
 		return false;
 	}

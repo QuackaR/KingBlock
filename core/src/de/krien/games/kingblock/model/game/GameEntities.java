@@ -3,10 +3,12 @@ package de.krien.games.kingblock.model.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.krien.games.kingblock.model.IEntity;
 import de.krien.games.kingblock.model.game.objects.chest.Chest;
 import de.krien.games.kingblock.model.game.player.Player;
+import de.krien.games.kingblock.util.game.GameUtil;
 
-public enum GameEntities {
+public enum GameEntities implements IGameEntityList {
 
 	INSTANCE();
 
@@ -17,9 +19,9 @@ public enum GameEntities {
 		entityList = new ArrayList<>();
 		player = new Player();
 		addEntity(player);
-		addEntity(new Chest());
+		addEntity(new Chest(GameUtil.getWorld()));
 	}
-
+	
 	public List<AGameEntity> getEntityList() {
 		return entityList;
 	}
@@ -34,6 +36,20 @@ public enum GameEntities {
 
 	public void removeEntity(AGameEntity entity) {
 		entityList.remove(entity);
+	}
+
+	@Override
+	public void addEntity(IEntity entity) {
+		if (entity instanceof AGameEntity) {
+			addEntity((AGameEntity) entity);
+		}
+	}
+
+	@Override
+	public void removeEntity(IEntity entity) {
+		if (entity instanceof AGameEntity) {
+			removeEntity((AGameEntity) entity);
+		}
 	}
 
 	public Player getPlayer() {

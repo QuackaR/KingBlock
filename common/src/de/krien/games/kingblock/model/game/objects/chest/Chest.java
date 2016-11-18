@@ -5,8 +5,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 
 import de.krien.games.kingblock.model.IClickableEntity;
+import de.krien.games.kingblock.model.IEntityList;
 import de.krien.games.kingblock.model.game.AGameEntity;
-import de.krien.games.kingblock.model.ui.UIEntities;
+import de.krien.games.kingblock.model.ui.IUIEntityList;
 import de.krien.games.kingblock.model.ui.menu.ContextMenu;
 import de.krien.games.kingblock.util.box2d.BodyUtil;
 import de.krien.games.kingblock.util.texture.AssetUtil;
@@ -23,12 +24,12 @@ public class Chest extends AGameEntity implements IClickableEntity {
 	}
 
 	@Override
-	public void clicked(Vector2 clickPosition) {
+	public void clicked(Vector2 clickPosition, IEntityList entityList) {
 		if (contextMenu != null) {
-			UIEntities.INSTANCE.removeEntity(contextMenu);
+			entityList.removeEntity(contextMenu);
 		}
-		this.contextMenu = new ChestMenu(clickPosition, texture);
-		UIEntities.INSTANCE.addEntity(contextMenu);
+		this.contextMenu = new ChestMenu((IUIEntityList)entityList, clickPosition, texture);
+		entityList.addEntity(contextMenu);
 	}
 
 }

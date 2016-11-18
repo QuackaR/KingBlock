@@ -1,6 +1,7 @@
 package de.krien.games.kingblock.model.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
 import de.krien.games.kingblock.model.IEntity;
@@ -17,7 +18,7 @@ public class AUIEntity implements IEntity {
 
 	}
 
-	public void draw(SpriteBatch spriteBatch) {
+	public void draw(SpriteBatch spriteBatch, Matrix4 projectionMatrix) {
 
 	}
 

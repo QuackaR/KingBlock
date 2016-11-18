@@ -4,6 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IClickableEntity{
 	
-	void clicked(Vector2 clickPosition);
+	void clicked(Vector2 clickPosition, IEntityList entityList);
 
 }

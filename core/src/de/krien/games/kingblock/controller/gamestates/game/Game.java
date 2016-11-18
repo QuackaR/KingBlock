@@ -5,6 +5,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -15,6 +16,7 @@ import de.krien.games.kingblock.model.game.AGameEntity;
 import de.krien.games.kingblock.model.game.GameEntities;
 import de.krien.games.kingblock.model.ui.AUIEntity;
 import de.krien.games.kingblock.model.ui.UIEntities;
+import de.krien.games.kingblock.util.graphics.ProjectionUtil;
 
 public class Game implements Screen {
 
@@ -73,17 +75,19 @@ public class Game implements Screen {
 	}
 
 	private void drawGameEntities() {
+		Matrix4 projectionGame = camera.getCamera().combined;
 		List<AGameEntity> gameEntities = GameEntities.INSTANCE.getEntityList();
 		for (int i = 0; i < gameEntities.size(); i++) {
-			gameEntities.get(i).draw(spriteBatch);
+			gameEntities.get(i).draw(spriteBatch, projectionGame);
 		}
-		debugRenderer.render(world, camera.getCamera().combined);
+		debugRenderer.render(world, projectionGame);
 	}
 
 	private void drawUIEntities() {
+		Matrix4 projectionUI = ProjectionUtil.getNormalProjection();
 		List<AUIEntity> uiEntities = UIEntities.INSTANCE.getEntityList();
 		for (int i = 0; i < uiEntities.size(); i++) {
-			uiEntities.get(i).draw(spriteBatch);
+			uiEntities.get(i).draw(spriteBatch, projectionUI);
 		}
 	}
 

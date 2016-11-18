@@ -1,10 +1,10 @@
 package de.krien.games.kingblock.model.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -23,8 +23,8 @@ public class AGameEntity implements IEntity {
     }
 
     @Override
-    public void draw(SpriteBatch spriteBatch) {
-		spriteBatch.setProjectionMatrix(((Game) (EGameState.GAME.getScreen())).getCamera().getCamera().combined);
+    public void draw(SpriteBatch spriteBatch, Matrix4 projectionMatrix) {
+		spriteBatch.setProjectionMatrix(projectionMatrix);
 		spriteBatch.begin();
     	spriteBatch.draw(new TextureRegion(texture), body.getPosition().x-(texture.getWidth()/2), body.getPosition().y-(texture.getHeight()/2), texture.getWidth()/2, texture.getHeight()/2, texture.getWidth(), texture.getHeight(), 1, 1, MathUtils.radiansToDegrees*body.getAngle());
 		spriteBatch.end();

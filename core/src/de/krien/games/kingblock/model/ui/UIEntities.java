@@ -3,9 +3,10 @@ package de.krien.games.kingblock.model.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.krien.games.kingblock.model.IEntity;
 import de.krien.games.kingblock.model.ui.stats.Stats;
 
-public enum UIEntities {
+public enum UIEntities implements IUIEntityList {
 
 	INSTANCE();
 
@@ -33,6 +34,20 @@ public enum UIEntities {
 
 	public void removeEntity(AUIEntity entity) {
 		entityList.remove(entity);
+	}
+
+	@Override
+	public void addEntity(IEntity entity) {
+		if (entity instanceof AUIEntity) {
+			addEntity((AUIEntity) entity);
+		}
+	}
+
+	@Override
+	public void removeEntity(IEntity entity) {
+		if (entity instanceof AUIEntity) {
+			removeEntity((AUIEntity) entity);
+		}
 	}
 
 }
